@@ -1,0 +1,49 @@
+<!-- Simple visualizer to check trajectory.svg -->
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+ <meta charset="utf-8">
+ <title>SVG Visualizer</title>
+ <meta name="description" content="description">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <style type="text/css">
+    #sim_result_svg{
+        height: 100%;
+        width: 100%;
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+    #main_frame{
+        margin: auto;
+        width:80%;
+        text-align: center;
+    }
+    iframe{
+        width:100%;
+        height:100vh;
+    }
+ </style>
+
+ </head>
+ <body>
+
+ <div id="main_frame">
+    <h3>Animation</h3>
+    <img id="sim_result_svg" class="svg" src ="./trajectory.svg">
+    <hr />
+    <h3>Vehicle Trajectory</h3>
+    <img src="trajectory.png" width="100%">
+    <hr />
+    <h3>MPC Log</h3>
+    <img src="mpc_result.png" width="100%">
+    <hr />
+    <h3>Simulator Log</h3>
+    <img src="simulator_result.png" width="100%">
+    <hr>
+    <!-- <h3>Output Log</h3>
+    <iframe id="inlineFrameExample" title="Output"src="log.txt"></iframe> -->
+ </div>
+
+ </body>
+</html>

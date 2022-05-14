@@ -1,0 +1,23 @@
+prediction_step: 30 # [step]
+prediction_dt: 0.1 # [m] per 1 step
+
+# Kinematic Bicycle Model in frenet-serret frame
+# x(t) = [y_e, \theta_e, x_e, V]
+# u(t) = [\delta, accel]
+
+# stable parameters
+# q_terminal_weight: [1.0, 0.5, 0.0, 1.0]
+# q_stage_weight: [1.0, 0.5, 0.0, 1.0]
+# r_stage_weight: [0.0, 0.1]
+# r_stage_diff_weight: [1.0, 0.5]
+
+# developing parameters
+q_terminal_weight: [10.0, 5.0, 0.0, 10.0]
+q_stage_weight: [1.0, 0.5, 0.0, 1.0]
+r_stage_weight: [0.0, 0.1]
+r_stage_diff_weight: [1.0, 0.5]
+
+# set constraints parameters
+constraints : 
+  max_steer : 30  # [deg] maximum absolute value of front tire steering angle
+  max_accel : 5.0 # [m/s^2] maximum absolute value of acceleration

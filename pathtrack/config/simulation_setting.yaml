@@ -1,0 +1,48 @@
+solver_type : "panoc"   # select "ipopt" / "panoc"
+simulation_time : 100.0 #[s] maximum time for simulation
+simulation_dist : 170.0 #[m] maximum distance to run. 0 means until path ends
+delta_time: 0.1 #[s]
+initial_state : # initial plant state
+# KBM
+# x(t) = [X[m], Y[m], Yaw[rad], Velocity[m/s]]
+# u(t) = [\delta[rad], accel[m/s^2]], where \delta is a front tire angle.
+  # x : [-4.8, 3.0, 0.0, 5.0] # for ovalpath
+  x : [0.0, 15.0, 0.0, 5.0] # for figure_of_8_path
+  u : [0.0, 0.0]
+
+reference : 
+  v_ref : 20 # [km/h] constant reference velocity
+  path : "reference/figure_of_8_path.csv"
+  # path : "reference/ovalpath_r15m_v20kmh.csv"
+
+# save_movie : True # this feature is coming soon...
+save_fig: True  # save figures
+show_fig: False # show figures when the simulation ends.
+show_realtime_visualize: True # show realtime visualization
+debug_visualize: False # show debug info
+press_enter_to_start_visualization : True
+
+output:
+  save_movie : True # TODO : kinou tsukeru
+  save_fig: True  # save figures
+  show_fig: False # show figures when the simulation ends.
+  debug_visualize: True # show debug info
+  show_realtime_visualize: True # show realtime visualization
+  press_enter_to_start_visualization : True
+  mpc:
+    title_array: [ "Time[s]", "y_e[m]", "theta_e[rad]", "x_e[m]", "V[m/s]", "steering angle[rad]", "acceleration[m/s^2]", "calculation time[ms]", "progressed distance[m]"]
+    figure:
+      filename: "./result/mpc_result"
+      format: ".png"
+    log:
+      filename: "./result/mpc_result"
+      format: ".csv"
+
+  simulator:
+    title_array: [ "Time[s]", "X[m]", "Y[m]", "Yaw[rad]", "V[m/s]", "steering angle[rad]", "acceleration[m/s^2]", "calculation time[ms]", "progressed distance[m]"]
+    figure:
+      filename: "./result/simulator_result"
+      format: ".png"
+    log:
+      filename: "./result/simulator_result"
+      format: ".csv"

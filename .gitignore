@@ -1,0 +1,6 @@
+**/__pycache__/*
+**/python_build/*
+**/result/*
+!**/result/.gitkeep
+*.c
+**/optimization-engine/*

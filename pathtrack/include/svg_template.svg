@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="base_layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+width="$WIDTH$" y="$HEIGHT$" viewBox="$VIEWBOX$" style="background:white;"  xml:space="preserve">
+
+<style type="text/css">
+	.st0{fill:none;stroke:black;stroke-width:1;stroke-miterlimit:10;}
+</style>
+
+<style type="text/css">
+	.st1{fill:none;stroke:purple;stroke-width:1.5;stroke-miterlimit:10;stroke-dasharray:5;}
+</style>
+
+<g>
+	<!-- Reference path -->
+	<path id = "ref_path" class="st1" d="$REFERENCEPATH$"/>
+</g>
+
+<g>
+	<!-- Vehicle trajectory -->
+	<path id = "trajectory" class="st0" d="$TRAJECTORY$"/>
+</g>
+
+<g>
+	<!-- Objects showing the ego-car -->
+	<rect x="-10" y="-8" rx="1" ry="1" width="20" height="16"
+	style="fill:white;stroke:black;stroke-width:2;opacity:0.5"/>
+    <g transform="translate(-2.5,-5),scale(1,1)">
+        <g id="marker_tmp">
+            <polygon points="0,0 1.5,5 0,10 10,5 " fill="black" stroke-width="1" stroke="black"/>
+        </g>
+    </g>
+
+	<!-- Animation settings -->
+	<animateMotion
+		dur = "$SIMTIME$s" repeatCount = "indefinite" rotate = "auto" calcMode="linear" keyPoints="$KEYPOINTS$" keyTimes="$KEYTIMES$">
+					<mpath xlink:href = "#trajectory"></mpath>
+	</animateMotion>
+</g>
+
+</svg>

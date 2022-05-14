@@ -1,0 +1,8 @@
+mpc_x_dim: 4 # state space dimention of mpc prediction model
+mpc_u_dim: 2 # input space dimention of mpc prediction model
+integral_approach : "euler" # euler or runge-kutta
+
+vehicle_parameter : 
+  m : 1300 # [kg] vehicle weight
+  l_f : 2.0 # [m] Distance between center of gravity and front wheel shaft.
+  l_r : 2.0 # [m] Distance between center of gravity and  rear wheel shaft.

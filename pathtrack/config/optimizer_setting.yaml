@@ -1,0 +1,13 @@
+# Settings on optimizer
+# Note that these parameters is for ipopt only.
+solver: "ipopt"
+s_opt : 
+  print_time : False
+p_opt : 
+  max_iter: 3000
+  acceptable_iter: 1000
+  print_level: 0
+  tol : 0.0001 # default is pow(10, -8)
+  acceptable_tol : 0.1 # default is pow(10, -4)
+  mu_init : 0.05
+  warm_start_init_point : "yes"
