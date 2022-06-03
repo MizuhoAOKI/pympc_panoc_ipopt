@@ -20,7 +20,7 @@ save_fig: True  # save figures
 show_fig: False # show figures when the simulation ends.
 show_realtime_visualize: True # show realtime visualization
 debug_visualize: False # show debug info
-press_enter_to_start_visualization : True
+press_enter_to_start_visualization : False
 
 output:
   save_movie : True # TODO : kinou tsukeru
