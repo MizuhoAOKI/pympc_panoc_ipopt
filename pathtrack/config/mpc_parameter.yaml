@@ -1,4 +1,4 @@
-prediction_step: 30 # [step]
+prediction_step: 60 # [step]
 prediction_dt: 0.1 # [m] per 1 step
 
 # Kinematic Bicycle Model in frenet-serret frame

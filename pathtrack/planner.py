@@ -33,16 +33,16 @@ class Pathtrack_Planner():
         self.MAX_FORWARD_SEARCH_POINTS = 10000 # [points]
         self.current_curvature = 0.0
 
-    def calc_curv(self, traveled_distance):
-        for i in range(0, self.ref.rowsize): # TODO : how about the case in going backward?
-            if traveled_distance < self.s[i] : 
+    def calc_curv(self, progressed_distance):
+        for i in range(0, self.ref.rowsize): # TODO : deal with the case in going backward?
+            if progressed_distance < self.s[i] : 
                 __target_index = i
                 break
         try:
             # TODO : use spline formula to get more accurate value
             __current_curvature = self.curv_list[__target_index]
         except UnboundLocalError:
-            print("Maybe your car reached the end of the reference path.")
+            print("Your car is assumed to be reached the end of the reference path.")
             return False
 
         return __current_curvature
@@ -50,7 +50,7 @@ class Pathtrack_Planner():
     # coordinate transformation from global to frenet
     # from : state x(t) = [X[m], Y[m], Yaw[rad], V[m/s], Yaw_rate[rad/s], \beta[rad], ax[m/s^2], ay[m/s^2]]
     # to   : state x(s) = [y_e, \theta_e, V, Yaw_rate, \beta, ax, ay]
-    def global_to_frenet(self, gx, gy, gyaw, gvelocity):
+    def global_to_frenet(self, gx, gy, gyaw):
         # run nns() and determine nearest s 
         self.gx, self.gy, self.gyaw = gx, gy, gyaw
 
@@ -70,16 +70,16 @@ class Pathtrack_Planner():
         A = -np.tan(path_yaw)
         B = 1.0
         C = -A*self.nx - self.ny
-        sign = np.sign(A*gx + B*gy + C) # left : + , right : - .
+        sign = np.sign(A*gx + B*gy + C) # vehicle is [left : + , right : - ] side of the ref. path.
         if not ( abs(path_yaw) < np.pi/2.0 ) : sign = -sign
         lateral_error = sign * np.sqrt( (self.nx - gx)**2 + (self.ny - gy)**2 )
 
         # x_e in Frenet-Serret frame  (traveled_distance on the path)
-        traveled_distance = self.nearest_s
-        self.current_curvature = self.calc_curv(traveled_distance)
+        progressed_distance = self.nearest_s
+        self.current_curvature = self.calc_curv(progressed_distance)
 
         # return position in Frenet-Serret frame.
-        return traveled_distance, [lateral_error, heading_error, traveled_distance, gvelocity]
+        return lateral_error, heading_error, progressed_distance
 
     # nearest Neighbor Search
     def nns(self):

@@ -32,8 +32,8 @@ class KBM_MPC():
     # constructor
     def __init__(self, mpc_parameter, simulation_setting, optimizer_config, prediction_model_config, planner_instance, solver_type, buildflag=True):
         self.planner = planner_instance
-        self.current_s = 0.0
-        self.solver_calc_time = 0.0
+        self.prog_dist = 0.0
+        self.calc_time = 0.0
         self.curvature_list = []
         self.buildflag = buildflag
         self.solver_type = solver_type
@@ -41,7 +41,8 @@ class KBM_MPC():
         self.simulation_setting = loadyaml(simulation_setting)
         self.config_opt = loadyaml(optimizer_config)
         self.p_model = loadyaml(prediction_model_config)
-
+        self.x = [0] * self.p_model["mpc_x_dim"]
+        self.u = [0] * self.p_model["mpc_u_dim"]
 
         if self.solver_type == "ipopt": # if target solver is officially supported by casadi
             self.__init_normalsolver()
@@ -55,6 +56,11 @@ class KBM_MPC():
     def __del__(self):
         if self.solver_type == "panoc":
             self.mng.kill() # close tcp server
+
+    # update states info
+    def update_states(self, lateral_error, heading_error, prog_dist, velocity):
+        self.x = [lateral_error, heading_error, prog_dist, velocity]
+        self.prog_dist = prog_dist
 
     ##### IPOPT #####
 
@@ -109,7 +115,7 @@ class KBM_MPC():
         # prepare curvature list
         curvature_list = []
         for t in range(self.N):
-            curvature_list.append(self.planner.calc_curv(self.current_s + t * self.config_mpc["prediction_dt"]))
+            curvature_list.append(self.planner.calc_curv(self.prog_dist + t * self.config_mpc["prediction_dt"]))
 
         # set parameters
         self.optimizer.set_value(self.x0, x0)
@@ -269,7 +275,7 @@ class KBM_MPC():
         # prepare curvature list
         curvature_list = []
         for t in range(self.N):
-            curvature_list.append(self.planner.calc_curv(self.current_s + t * self.dt))
+            curvature_list.append(self.planner.calc_curv(self.prog_dist + t * self.dt))
 
         print("[INFO] Call solver")
         optimization_parameters = []
@@ -288,11 +294,11 @@ class KBM_MPC():
             solution_data = response.get()
             u_star = np.array(solution_data.solution).reshape(self.N, self.udim)
             self.exit_status = solution_data.exit_status
-            self.solver_calc_time = solution_data.solve_time_ms
+            self.calc_time = solution_data.solve_time_ms
             self.f2_norm = solution_data.f2_norm
             # print(f"optimal solution : u = \n{u_star}")
             print(f"exit status : {self.exit_status}")
-            print(f"computation time = {self.solver_calc_time} [ms]")
+            print(f"computation time = {self.calc_time} [ms]")
             print(f"f2_norm = {self.f2_norm}")
             return u_star
         else:

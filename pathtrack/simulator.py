@@ -36,10 +36,13 @@ class KBM_Simulator():
 
     # initialize variables
     def __initialize_variables(self):
-        self.x  = self.simulation_setting["initial_state"]["x"]
+        self.x  = self.gx, self.gy, self.gyaw, self.vel = self.simulation_setting["initial_state"]["x"]
         self.u  = self.simulation_setting["initial_state"]["u"]
         self.dt = self.simulation_setting["delta_time"]
         self.sim_time = self.simulation_setting["simulation_time"]
+
+    def update_states(self):
+        self.gx, self.gy, self.gyaw, self.vel = self.x
 
     # update x with given dt
     def simulate(self, x, u, dt):
@@ -77,3 +80,5 @@ class KBM_Simulator():
         # adjust format and return dxdt
         dxdt = np.array([x_dot, y_dot, yaw_rate, vel_dot])
         return dxdt
+
+## TODO : Add Dynamic Bicycle Simulator
