@@ -35,7 +35,7 @@ See [Official Page](https://alphaville.github.io/optimization-engine/) for detai
 https://user-images.githubusercontent.com/63337525/168445716-ba20d188-c391-4b92-8a79-194076ac7a5b.mp4
 
 
-
+<!--
 ## Environment costruction
 Check latest information at [the official page](https://alphaville.github.io/optimization-engine/docs/installation).
 
@@ -45,9 +45,9 @@ Check latest information at [the official page](https://alphaville.github.io/opt
     - Use python 3.x
 - Install [Clang](https://github.com/rust-lang/rust-bindgen/blob/master/book/src/requirements.md)
 
-<!-- #### Especially for windows users who have [scoop](https://scoop.sh/), just run following commands.
+#### Especially for windows users who have [scoop](https://scoop.sh/), just run following commands.
 - ```scoop install python```
-- ```scoop install rustup``` -->
+- ```scoop install rustup```
 
 #### Install latest opengen
 - ```git clone https://github.com/alphaville/optimization-engine.git```
@@ -58,10 +58,27 @@ Check latest information at [the official page](https://alphaville.github.io/opt
 
 #### Install other python packages
 - ```pip install -r requirements.txt```
+-->
+
+### Environment construction
+For ubuntu users, 
+
+- Install Poetry  
+    - `$ curl -sSL https://install.python-poetry.org | python3 -`  
+    - `$ echo export PATH="/home/mizuho/.local/bin:$PATH" >> ~/.bashrc`
+- Install cargo  
+    - `$ sudo apt-get -y install cargo`
+- Clone this repository
+    - `git clone https://github.com/MizuhoAOKI/pympc_panoc_ipopt.git`
+- Install python libraries
+    - ```$ cd pympc_panoc_ipopt```
+    - ```$ poetry install ```
 
 ### How to run
-```$ cd pympc_panoc_ipopt/pathtrack```
-```$ python run_simulation.py```
+```$ cd pympc_panoc_ipopt```  
+```$ poetry shell```  
+```$ cd pathtrack```  
+```$ python main.py```  
 
 ## References
 - [OpEn official HP](https://alphaville.github.io/optimization-engine/)
