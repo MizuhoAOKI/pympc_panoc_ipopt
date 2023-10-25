@@ -62,16 +62,15 @@ Check latest information at [the official page](https://alphaville.github.io/opt
 
 ### Environment construction
 
-Python version 3.8.x is recommended.
-
-For ubuntu users, 
+Here are procedures for ubuntu users.
 
 - Install [Python](https://www.python.org/)
     - [pyenv](https://github.com/pyenv/pyenv) is helpful to switch version of python interpreters.
-- Install Poetry  
+    - Python version 3.8.x is recommended.
+- Install [Poetry](https://python-poetry.org/)  
     - `$ curl -sSL https://install.python-poetry.org | python3 -`  
     - `$ echo export PATH="/home/mizuho/.local/bin:$PATH" >> ~/.bashrc`
-- Install cargo  
+- Install cargo
     - `$ sudo apt-get -y install cargo`
 - Clone this repository
     - `git clone https://github.com/MizuhoAOKI/pympc_panoc_ipopt.git`
