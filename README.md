@@ -61,8 +61,13 @@ Check latest information at [the official page](https://alphaville.github.io/opt
 -->
 
 ### Environment construction
+
+Python version 3.8.x is recommended.
+
 For ubuntu users, 
 
+- Install [Python](https://www.python.org/)
+    - [pyenv](https://github.com/pyenv/pyenv) is helpful to switch version of python interpreters.
 - Install Poetry  
     - `$ curl -sSL https://install.python-poetry.org | python3 -`  
     - `$ echo export PATH="/home/mizuho/.local/bin:$PATH" >> ~/.bashrc`
